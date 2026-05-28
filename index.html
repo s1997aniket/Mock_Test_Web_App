@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCA Practice Test</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <span class="brand">📐 PCA Practice Test</span>
+  <span id="timer-nav"></span>
+</nav>
+
+<!-- SETUP PAGE -->
+<div class="page active" id="pg-setup">
+  <div style="padding-top:.5rem">
+    <p class="setup-title">PCA Practice Test</p>
+    <p class="setup-sub">244 questions &nbsp;·&nbsp; Multiple choice &nbsp;·&nbsp; Timed</p>
+
+    <div class="card">
+      <div class="card-label">1. Select mode</div>
+      <div class="mode-tabs">
+        <button class="tab-btn active" onclick="setMode('year')">By Year</button>
+        <button class="tab-btn" onclick="setMode('topic')">By Topic</button>
+        <button class="tab-btn" onclick="setMode('random')">Random Mix</button>
+      </div>
+
+      <div class="panel active" id="panel-year">
+        <div style="color:var(--muted);font-size:.85rem;margin-bottom:.4rem">Select year:</div>
+        <div class="grid-opts" id="year-opts"></div>
+      </div>
+      <div class="panel" id="panel-topic">
+        <div style="color:var(--muted);font-size:.85rem;margin-bottom:.4rem">Select topic:</div>
+        <div class="grid-opts" id="topic-opts"></div>
+      </div>
+      <div class="panel" id="panel-random">
+        <div style="color:var(--muted);font-size:.85rem;margin-bottom:.4rem">Number of questions:</div>
+        <div class="num-row">
+          <button onclick="adjCount(-5)">−</button>
+          <input type="number" id="rand-count" value="30" min="5" max="244">
+          <button onclick="adjCount(+5)">+</button>
+        </div>
+        <p class="hint">Max: 244 questions</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">2. Time limit</div>
+      <div class="time-row">
+        <input type="number" id="time-input" value="60" min="5" max="300">
+        <span style="color:var(--muted)">minutes</span>
+      </div>
+      <p class="hint">Suggestion: 1 min per question</p>
+    </div>
+
+    <button class="btn-start" onclick="startTest()">Start Test →</button>
+  </div>
+</div>
+
+<!-- TEST PAGE -->
+<div class="page" id="pg-test">
+  <div class="topbar">
+    <span class="prog-text" id="prog-text"></span>
+    <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar"></div></div>
+  </div>
+
+  <div class="q-meta">
+    <span class="badge badge-topic" id="q-topic"></span>
+    <span class="badge badge-id" id="q-id"></span>
+  </div>
+
+  <div class="img-wrap" id="img-wrap">
+    <img id="q-img" src="" alt="" onerror="showImgMissing()">
+  </div>
+
+  <div class="choices" id="choices-grid"></div>
+
+  <div class="nav-btns">
+    <button class="btn-nav" id="btn-prev" onclick="navigate(-1)">← Prev</button>
+    <button class="btn-nav btn-finish-nav" onclick="confirmFinish()">Finish Test</button>
+    <button class="btn-nav btn-next" id="btn-next" onclick="navigate(1)">Next →</button>
+  </div>
+
+  <div class="q-grid-label">Jump to question:</div>
+  <div class="q-grid" id="q-grid"></div>
+</div>
+
+<!-- RESULTS PAGE -->
+<div class="page" id="pg-results">
+  <div class="score-hero">
+    <h1>Test Complete!</h1>
+    <div class="score-ring">
+      <span class="score-big" id="res-score"></span>
+      <span class="score-of" id="res-of"></span>
+    </div>
+    <div class="score-pct" id="res-pct"></div>
+    <div class="duration" id="res-dur"></div>
+    <button class="btn-retake" onclick="goSetup()">Take Another Test</button>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Topic breakdown</div>
+    <div id="topic-breakdown"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Answer review</div>
+    <div class="review-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Problem ID</th><th>Topic</th><th>Your answer</th><th>Correct</th><th>Result</th></tr>
+        </thead>
+        <tbody id="review-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
