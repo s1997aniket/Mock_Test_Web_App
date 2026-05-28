@@ -113,7 +113,7 @@ function renderQuestion(){
   img.style.display='block';
   const miss=wrap.querySelector('.img-missing');
   if(miss) miss.remove();
-  img.src='./questions/'+q.Problem_ID+'.jpg';
+  img.src='./questions/'+q.Problem_ID+'.JPG';
   img.alt=q.Problem_ID;
 
   // Choices
